@@ -11,6 +11,16 @@ terraform {
     }
   }
 }
+
+#S3 backend
+terraform {
+  backend "s3" {
+    bucket = "jithendar"
+    key    = "tf_statefiles/ecs_terraform/cart.tfstate"
+    region = "us-east-1"
+  }
+}
+
 resource "aws_ecs_cluster" "cluster" {
   name = "kp-ecs-cluster"
 
@@ -71,9 +81,9 @@ module "ecs-fargate" {
 }
 
 provider "aws" {
-  region     = "us-east-1"
-#   access_key = var.aws_access_key
-#   secret_key = var.aws_secret_key
+  region = "us-east-1"
+  #   access_key = var.aws_access_key
+  #   secret_key = var.aws_secret_key
 }
 
 provider "docker" {}
